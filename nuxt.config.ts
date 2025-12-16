@@ -1,18 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
-    devtools: {enabled: true},
+    devtools: { enabled: true },
     modules: [
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt'
     ],
-
+    // -----------------------------------------------------------
+    // FIX: Force Nuxt to transpile the Supabase client
+    // -----------------------------------------------------------
+    build: {
+        transpile: ['@supabase/supabase-js']
+    },
     runtimeConfig: {
         public: {
             supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL,
             supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY
         }
     },
-
     css: ['~/assets/tailwind.css']
 })
